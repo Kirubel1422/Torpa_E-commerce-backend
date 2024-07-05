@@ -1,0 +1,14 @@
+{
+  "name": "torpa_e-commerce-backend",
+  "version": "1.0.0",
+  "description": "Backend made with express js",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm start test"
+  },
+  "keywords": [
+    "E-commerce"
+  ],
+  "author": "Kirubel Mamo",
+  "license": "ISC"
+}
