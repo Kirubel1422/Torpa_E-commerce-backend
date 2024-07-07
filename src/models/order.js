@@ -25,12 +25,14 @@ const OrderSchema = new Schema(
     },
   },
   {
-    toJSON: function (doc, ret) {
-      ret.id = ret._id;
-      delete ret.__v;
-      delete ret._id;
+    toJSON: {
+      transform: function (doc, ret) {
+        ret.id = ret._id;
+        delete ret.__v;
+        delete ret._id;
+      },
+      timestamps: true,
     },
-    timestamps: true,
   }
 );
 
