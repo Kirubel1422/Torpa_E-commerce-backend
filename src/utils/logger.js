@@ -1,5 +1,5 @@
 const { format, createLogger, transports } = require("winston");
-const { timestamp, combine, colorize, prettyprint, json } = format;
+const { timestamp, combine, colorize, prettyprint, json, printf } = format;
 
 // For dev environment
 const devLogger = (source) => {
