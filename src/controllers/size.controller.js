@@ -1,4 +1,5 @@
 const Size = require("../models/size");
+const logger = require("../utils/logger")("size controller");
 
 // Creating size
 exports.createSize = (req, res, next) => {
@@ -13,8 +14,8 @@ exports.createSize = (req, res, next) => {
         return res.status(201).json({ message: "Size created successfully" });
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
+      logger.error(err);
+      next(err);
     });
 };
 
@@ -23,15 +24,15 @@ exports.updateSize = (req, res, next) => {
   const { size } = req.body;
   const { sizeId } = req.params;
 
-  Size.findByIdAndUpdate(sizeId, size)
+  Size.findByIdAndUpdate(sizeId, { size })
     .then((updatedSize) => {
       if (updatedSize) {
         return res.json({ message: "Size updated Successfully" });
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
+      logger.error(err);
+      next(err);
     });
 };
 
@@ -41,7 +42,8 @@ exports.deleteSize = (req, res, next) => {
 
   Size.findByIdAndDelete(sizeId)
     .then((result) => {
-      if (result.deleteCount > 0) {
+      console.log(result);
+      if (result) {
         return res.json({
           message: "Size deleted successfully.",
         });
@@ -52,8 +54,8 @@ exports.deleteSize = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
+      logger.error(err);
+      next(err);
     });
 };
 
@@ -64,10 +66,11 @@ exports.getSizeById = (req, res, next) => {
   Size.findById(sizeId)
     .then((size) => {
       if (size) return res.send(size);
+      return res.status(400).json({ message: "Size not found." });
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
+      logger.error(err);
+      next(err);
     });
 };
 
@@ -76,7 +79,7 @@ exports.getAllSizes = (req, res, next) => {
   Size.find({})
     .then((sizes) => res.send(sizes))
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
+      logger.error(err);
+      next(err);
     });
 };
