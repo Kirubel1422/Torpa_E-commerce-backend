@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const passport = require("passport");
 const router = require("./src/routes/");
+const errorHandler = require("./src/middlewares/errorHandler");
 
 // Use cors
 app.use(
@@ -34,6 +35,16 @@ passport.initialize();
 
 // Use routers
 app.use(router);
+
+// Error handling `404` - not found
+app.use((req, res, next) => {
+  const error = new Error("Not found.");
+  error.status = 404;
+
+  next(error);
+});
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is listening on: ${PORT}`));
