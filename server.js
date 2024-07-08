@@ -6,6 +6,8 @@ const app = express();
 const helmet = require("helmet");
 const cors = require("cors");
 const passport = require("passport");
+const fileUpload = require("express-fileupload");
+const path = require("path");
 const router = require("./src/routes/");
 const errorHandler = require("./src/middlewares/errorHandler");
 
@@ -29,6 +31,13 @@ app.use(
 // Parse json
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.resolve(__dirname, "./public/")));
+app.use(
+  fileUpload({
+    abortOnLimit: true,
+    limits: { fileSize: 5000 * 1000 }, // 5mb
+  })
+);
 
 // Use passport
 passport.initialize();
