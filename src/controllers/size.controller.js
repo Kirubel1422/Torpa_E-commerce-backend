@@ -29,6 +29,8 @@ exports.updateSize = (req, res, next) => {
       if (updatedSize) {
         return res.json({ message: "Size updated Successfully" });
       }
+
+      return res.status(400).json({ message: "Size not updated" });
     })
     .catch((err) => {
       logger.error(err);

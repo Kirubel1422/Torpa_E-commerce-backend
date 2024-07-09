@@ -66,6 +66,12 @@ const ProductSchema = new Schema(
       type: Number,
       default: 1,
     },
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
   },
   {
     toJSON: {
