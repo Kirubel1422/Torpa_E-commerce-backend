@@ -5,13 +5,11 @@ const ProductSchema = new Schema(
     brand: {
       type: Schema.Types.ObjectId,
       ref: "Brand",
-      required: true,
     },
     category: [
       {
         type: Schema.Types.ObjectId,
         ref: "Category",
-        required: true,
       },
     ],
     productName: {
@@ -30,14 +28,12 @@ const ProductSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Color",
-        required: true,
       },
     ],
     size: [
       {
         type: Schema.Types.ObjectId,
         ref: "Size",
-        required: true,
       },
     ],
     minOrder: {
@@ -48,14 +44,12 @@ const ProductSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Reviews",
-        required: true,
       },
     ],
     shippingInfo: [
       {
         type: Schema.Types.ObjectId,
         ref: "ShippingInfo",
-        required: true,
       },
     ],
     discount: {
@@ -72,6 +66,10 @@ const ProductSchema = new Schema(
         required: true,
       },
     ],
+    productOwner: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
   },
   {
     toJSON: {

@@ -1,5 +1,6 @@
 const path = require("path");
 const crypto = require("crypto");
+const { isImgValid } = require("../utils/validations");
 
 module.exports = (req, res, next) => {
   const { name } = req.body;
@@ -14,10 +15,7 @@ module.exports = (req, res, next) => {
   }
 
   // Check mime type
-  if (
-    !path.extname(image.name) ||
-    !path.extname(image.name).match(/\.(jpg|jpeg|png)$/i)
-  ) {
+  if (!isImgValid(image)) {
     return res.status(400).json({ message: "Invalid mimetype" });
   }
 

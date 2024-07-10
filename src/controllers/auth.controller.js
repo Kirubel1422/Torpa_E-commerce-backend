@@ -1,4 +1,3 @@
-const User = require("../models/user");
 const passport = require("passport");
 
 exports.signup = (req, res, next) => {
@@ -13,7 +12,7 @@ exports.signup = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.login = async (req, res, next) => {
+exports.login = (req, res, next) => {
   passport.authenticate("local-login", (err, result, info) => {
     // If error, jump to next route
     if (err) next(err);

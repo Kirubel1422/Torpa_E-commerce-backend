@@ -1,6 +1,7 @@
 const passport = require("passport");
 const { Strategy: jwtStrategy, ExtractJwt } = require("passport-jwt");
 const LocalStrategy = require("passport-local").Strategy;
+const logger = require("../utils/logger")("Authentication - passport.js");
 
 const User = require("../models/user");
 const { genToken } = require("../utils/jwt");
@@ -12,15 +13,19 @@ module.exports = () => {
     "jwt",
     new jwtStrategy(
       {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken,
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: SECRET,
       },
-      (id, done) => {
-        User.findOne({ _id: id })
+      (payload, done) => {
+        User.findOne({ _id: payload.id })
           .then((existingUser) => {
             done(null, existingUser);
           })
-          .catch((err) => done(null, false, { message: "unauthorized" }));
+          .catch((err) => {
+            logger.error(err);
+            if (err) return done(err, false);
+            done(null, false, { message: "User not authorized." });
+          });
       }
     )
   );
@@ -54,7 +59,10 @@ module.exports = () => {
 
             done(null, newUser);
           })
-          .catch((err) => done(err, false));
+          .catch((err) => {
+            done(err, false);
+            logger.error(err);
+          });
       }
     )
   );
@@ -91,7 +99,10 @@ module.exports = () => {
 
             done(null, { user: existingUser, token });
           })
-          .catch((err) => done(err, false));
+          .catch((err) => {
+            logger.error(err);
+            done(err, false);
+          });
       }
     )
   );

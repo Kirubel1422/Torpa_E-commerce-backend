@@ -7,5 +7,6 @@ router.use("/api/v1/category/", require("./category.route"));
 router.use("/api/v1/color/", require("./color.route"));
 router.use("/api/v1/shippingInfo/", require("./shippingInfo.route"));
 router.use("/api/v1/reviews/", require("./reviews.route"));
+router.use("/api/v1/products/", require("./product.route"));
 
 module.exports = router;
