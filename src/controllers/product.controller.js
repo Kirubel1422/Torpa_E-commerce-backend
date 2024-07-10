@@ -13,6 +13,8 @@ exports.createProduct = (req, res, next) => {
     reviews,
     shippingInfo,
     imgs,
+    userId,
+    stock,
   } = req.body;
 
   const newProduct = new Products({
@@ -25,7 +27,9 @@ exports.createProduct = (req, res, next) => {
     size,
     reviews,
     shippingInfo,
-    imgs,
+    images: imgs,
+    stock,
+    productOwner: userId,
   });
 
   newProduct
@@ -58,6 +62,7 @@ exports.updateProduct = (req, res, next) => {
     reviews,
     shippingInfo,
     imgs,
+    stock,
   } = req.body;
 
   Products.findByIdAndUpdate(productId, {
@@ -70,7 +75,8 @@ exports.updateProduct = (req, res, next) => {
     size,
     reviews,
     shippingInfo,
-    imgs,
+    images: imgs,
+    stock,
   })
     .then((updatedProd) => {
       if (updatedProd) {

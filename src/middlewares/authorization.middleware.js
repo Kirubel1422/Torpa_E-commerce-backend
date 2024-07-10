@@ -31,8 +31,8 @@ exports.authorizeCustomer = (req, res, next) => {
       error.status = 401;
       return next(error);
     }
-
     // Attach customer's id to req.body;
     req.body.userId = user._id;
+    next();
   });
 };

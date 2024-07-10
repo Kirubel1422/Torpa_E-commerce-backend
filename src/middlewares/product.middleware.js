@@ -13,8 +13,8 @@ module.exports = (req, res, next) => {
     size,
     reviews,
     shippingInfo,
-    images,
   } = req.body;
+  const { images } = req.files;
 
   // Check if brand id is valid
   if (brand && !isValidID(brand))
@@ -36,7 +36,7 @@ module.exports = (req, res, next) => {
       if (!isImgValid(img))
         return res.status(400).json({ message: "Invalid mime type." });
 
-      const imgName = crypto.randomUUID() + path.extname(img);
+      const imgName = crypto.randomUUID() + path.extname(img.name);
       img.mv(path.resolve(__dirname, "../../public/images", imgName));
       imgs.push(imgName);
     }
@@ -53,31 +53,37 @@ module.exports = (req, res, next) => {
   }
 
   // Validate product color
-  if (color.length && color.find((colId) => !isValidID(colId)))
+  if (Array.isArray(color) && color.find((colId) => !isValidID(colId)))
     return res.status(400).json({
       message: "Invalid color Id.",
     });
 
   // validate product size
-  if (size.length && size.find((sizeId) => !isValidID(sizeId)))
+  if (Array.isArray(size) && size.find((sizeId) => !isValidID(sizeId)))
     return res.status(400).json({
       message: "Invalid size Id.",
     });
 
   // validate product reviews
-  if (reviews.length && reviews.find((revId) => !isValidID(revId)))
+  if (Array.isArray(reviews) && reviews.find((revId) => !isValidID(revId)))
     return res.status(400).json({
       message: "Invalid review Id.",
     });
 
   // validate product shippingInfo
-  if (shippingInfo.length && shippingInfo.find((shipId) => !isValidID(shipId)))
+  if (
+    Array.isArray(shippingInfo) &&
+    shippingInfo.find((shipId) => !isValidID(shipId))
+  )
     return res.status(400).json({
       message: "Invalid ShippingInfo Id.",
     });
 
   // validate product shippingInfo
-  if (category.length && category.find((categoryId) => !isValidID(categoryId)))
+  if (
+    Array.isArray(category) &&
+    category.find((categoryId) => !isValidID(categoryId))
+  )
     return res.status(400).json({
       message: "Invalid category Id.",
     });

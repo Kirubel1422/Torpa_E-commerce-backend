@@ -19,4 +19,4 @@ const ShippingInfoSchema = new Schema(
   }
 );
 
-module.exports = model("ShippingInfoSchema", ShippingInfoSchema);
+module.exports = model("ShippingInfo", ShippingInfoSchema);
