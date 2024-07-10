@@ -3,7 +3,6 @@ const logger = require("../utils/logger")("Reviews controller");
 
 exports.getAllReviews = (req, res, next) => {
   Reviews.find({})
-    .populate("productId")
     .then((reviews) => res.send(reviews))
     .catch((err) => {
       logger.error(err);
@@ -14,7 +13,6 @@ exports.getAllReviews = (req, res, next) => {
 exports.getReviewsById = (req, res, next) => {
   const { reviewId } = req.params;
   Reviews.findById(reviewId)
-    .populate("productID")
     .then((review) => res.send(review))
     .catch((err) => {
       logger.error(err);
@@ -23,9 +21,16 @@ exports.getReviewsById = (req, res, next) => {
 };
 
 exports.createReview = (req, res, next) => {
-  const { name, email, comment, rating } = req.body;
+  const { name, email, comment, rating, userId, productId } = req.body;
 
-  const newReview = new Reviews({ name, email, comment, rating });
+  const newReview = new Reviews({
+    name,
+    email,
+    comment,
+    rating,
+    customerId: userId,
+    productId,
+  });
 
   newReview
     .save()

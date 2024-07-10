@@ -63,6 +63,8 @@ exports.updateProduct = (req, res, next) => {
     shippingInfo,
     imgs,
     stock,
+    discount,
+    minOrder,
   } = req.body;
 
   Products.findByIdAndUpdate(productId, {
@@ -77,6 +79,8 @@ exports.updateProduct = (req, res, next) => {
     shippingInfo,
     images: imgs,
     stock,
+    discount,
+    minOrder,
   })
     .then((updatedProd) => {
       if (updatedProd) {
