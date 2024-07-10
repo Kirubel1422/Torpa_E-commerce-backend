@@ -3,8 +3,7 @@ const passport = require("passport");
 exports.authorizeSeller = (req, res, next) => {
   passport.authenticate("jwt", (err, user, info) => {
     if (err) return next(err);
-    if (!user)
-      return res.status(401).json(info || { message: "UnAuthorized user." });
+    if (!user) return res.status(401).json({ message: "UnAuthorized user." });
 
     // Check if it is a seller
     if (user.role != "Seller") {
@@ -24,8 +23,7 @@ exports.authorizeSeller = (req, res, next) => {
 exports.authorizeCustomer = (req, res, next) => {
   passport.authenticate("jwt", (err, user, info) => {
     if (err) return next(err);
-    if (!user)
-      return res.status(401).json(info || { message: "UnAuthorized user." });
+    if (!user) return res.status(401).json({ message: "UnAuthorized user." });
 
     // Check if it is a customer
     if (user.role != "Customer") {
