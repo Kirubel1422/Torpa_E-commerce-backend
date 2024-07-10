@@ -22,6 +22,10 @@ const ReviewSchema = new Schema(
       ref: "Product",
       required: true,
     },
+    customerId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
   },
   {
     toJSON: {
