@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
     });
 
   // Check availability of required fields
-  if (!productName || !description || !price || !images.length)
+  if (!productName || !description || !price || !images)
     return res.status(400).json({
       message: "All fields are required!",
     });
@@ -46,8 +46,8 @@ module.exports = (req, res, next) => {
     if (!isImgValid(images))
       return res.status(400).json({ message: "Invalid mime type." });
 
-    const imgName = crypto.randomUUID() + path.extname(images);
-    img.mv(path.resolve(__dirname, "../../public/images", imgName));
+    const imgName = crypto.randomUUID() + path.extname(images.name);
+    images.mv(path.resolve(__dirname, "../../public/images", imgName));
 
     req.body.imgs = imgName;
   }

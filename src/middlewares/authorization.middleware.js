@@ -33,6 +33,7 @@ exports.authorizeCustomer = (req, res, next) => {
     }
     // Attach customer's id to req.body;
     req.body.userId = user._id;
+
     next();
-  });
+  })(req, res, next);
 };
