@@ -8,5 +8,7 @@ router.use("/api/v1/color/", require("./color.route"));
 router.use("/api/v1/shippingInfo/", require("./shippingInfo.route"));
 router.use("/api/v1/reviews/", require("./reviews.route"));
 router.use("/api/v1/products/", require("./product.route"));
+router.use("/api/v1/orders/", require("./order.route"));
+router.use("/api/v1/payment/", require("./stripe.route"));
 
 module.exports = router;

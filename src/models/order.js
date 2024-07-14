@@ -7,11 +7,17 @@ const OrderSchema = new Schema(
       ref: "User",
       required: true,
     },
-    productId: [
+    products: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        required: true,
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
       },
     ],
     status: {
@@ -19,9 +25,9 @@ const OrderSchema = new Schema(
       enum: ["Paid", "Pending", "Delivered", "Cancelled"],
       default: "Pending",
     },
-    quantity: {
+    total: {
       type: Number,
-      default: 1,
+      required: true,
     },
   },
   {
@@ -36,4 +42,4 @@ const OrderSchema = new Schema(
   }
 );
 
-module.exports = model("Reviews", OrderSchema);
+module.exports = model("Order", OrderSchema);
