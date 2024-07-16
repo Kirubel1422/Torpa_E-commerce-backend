@@ -4,7 +4,6 @@ const logger = require("../utils/logger")("Order controller");
 exports.getAllOrders = (req, res, next) => {
   Order.find({})
     .populate("products.product")
-    .populate("user")
     .then((orders) => {
       res.send(orders);
     })

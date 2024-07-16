@@ -5,6 +5,5 @@ const {
 } = require("../middlewares/authorization.middleware");
 
 router.route("/createPayment").post(authorizeCustomer, createPayment);
-router.route("/stripe/webhook").post(webhook);
 
 module.exports = router;

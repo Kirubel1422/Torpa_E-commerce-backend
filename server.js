@@ -10,6 +10,7 @@ const fileUpload = require("express-fileupload");
 const path = require("path");
 const router = require("./src/routes/");
 const errorHandler = require("./src/middlewares/errorHandler");
+const { webhook } = require("./src/controllers/stripe.controller");
 
 // Use cors
 app.use(
@@ -44,6 +45,12 @@ passport.initialize();
 
 // Use routers
 app.use(router);
+
+app.post(
+  "/stripe/payment/webhook",
+  express.json({ type: "application/json" }),
+  webhook
+);
 
 // Error handling `404` - not found
 app.use((req, res, next) => {
