@@ -29,7 +29,7 @@ exports.createProduct = (req, res, next) => {
     shippingInfo,
     images: imgs,
     stock,
-    productOwner: userId,
+    admin: userId,
   });
 
   newProduct

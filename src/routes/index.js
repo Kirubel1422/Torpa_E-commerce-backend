@@ -10,5 +10,7 @@ router.use("/api/v1/reviews/", require("./reviews.route"));
 router.use("/api/v1/products/", require("./product.route"));
 router.use("/api/v1/orders/", require("./order.route"));
 router.use("/api/v1/payment/", require("./stripe.route"));
+router.use("/api/v1/cart/", require("./cart.route"));
+router.use("/api/v1/favourites/", require("./favourite.route"));
 
 module.exports = router;

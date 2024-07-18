@@ -66,7 +66,7 @@ const ProductSchema = new Schema(
         required: true,
       },
     ],
-    productOwner: {
+    admin: {
       type: Schema.Types.ObjectId,
       required: true,
     },

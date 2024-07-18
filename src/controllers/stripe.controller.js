@@ -31,7 +31,7 @@ exports.createPayment = (req, res, next) => {
           },
         })
         .then((session) => {
-          console.log("session created:", session);
+          console.log("session created successfully");
           res.send({ sessionUrl: session.url, order });
         })
         .catch((err) => {
