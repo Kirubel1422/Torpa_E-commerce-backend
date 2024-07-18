@@ -3,7 +3,7 @@ const logger = require("../utils/logger")("Order controller");
 
 exports.getAllOrders = (req, res, next) => {
   Order.find({})
-    .populate("products.product")
+    .populate("products")
     .then((orders) => {
       res.send(orders);
     })
@@ -24,6 +24,17 @@ exports.getOrderById = (req, res, next) => {
         });
       }
 
+      res.send(order);
+    })
+    .catch((err) => {
+      logger.error(err);
+      next(err);
+    });
+};
+
+exports.getPaidOrders = (req, res, next) => {
+  Order.find({ status: { $in: ["paid", "Paid"] } })
+    .then((order) => {
       res.send(order);
     })
     .catch((err) => {

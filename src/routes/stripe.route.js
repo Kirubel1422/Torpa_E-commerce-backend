@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { createPayment, webhook } = require("../controllers/stripe.controller");
+const { createPayment } = require("../controllers/stripe.controller");
 const {
   authorizeCustomer,
 } = require("../middlewares/authorization.middleware");
